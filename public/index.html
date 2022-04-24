@@ -3,8 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <title>Second project</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      #root {
+        margin: 20px;
+        z-index: 100;
+      }
+
+      #modal-message-content-box-id {
+        position: fixed;
+        left: 0;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        z-index: 200
+      }
+    </style>
   </head>
   <body>
+    <div id="modal-message-content-box-id"></div>
     <div id="root"></div>
   </body>
 </html>

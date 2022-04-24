@@ -1,7 +1,11 @@
 import {useState} from "react";
+import ModalWindowComponent from "../ModalWindow/ModalWindowComponent";
+import React from 'react';
 
 export default function InputFormComponent(props) {
     const [a, setA] = useState("");
+    const [b, setB] = useState("");
+    const [opened, setOpened] = useState(false);
 
     function onInformationChange(aEvent) {
         setA(aEvent.target.value);
@@ -38,18 +42,31 @@ export default function InputFormComponent(props) {
             return;
         if(!a.trim())
             return;
+        setB(a.trim());
+        setOpened(true);
         props.userClickHandler(a.trim());
         setA("");
     }
 
+    function onCloseWindow() {
+        setOpened(false);
+        setB("");
+    }
+
     return (
-        <div style={{padding: "12px", borderRadius: "6px", background: "#AFEEEE"}}>
-            <p>Input string</p>
-            <input type={"text"} spellCheck={"false"} autoComplete={"off"} onChange={onInformationChange} value={a} />
-            <p style={{fontWeight: 'bold', color: getColorOfMessage(a)}}>{getMessage(a)}</p>
-            <div style={getBtnStyle(a)} onClick={onButtonClick}>Append</div>
-            <br/>
-            <br/>
-        </div>
+        <React.Fragment>
+            <React.Fragment>
+                {opened && <ModalWindowComponent stringContent={b} onCloseWindow={onCloseWindow} />}
+            </React.Fragment>
+
+            <div style={{padding: "12px", borderRadius: "6px", background: "#AFEEEE"}}>
+                <p>Input string</p>
+                <input type={"text"} spellCheck={"false"} autoComplete={"off"} onChange={onInformationChange} value={a} />
+                <p style={{fontWeight: 'bold', color: getColorOfMessage(a)}}>{getMessage(a)}</p>
+                <div style={getBtnStyle(a)} onClick={onButtonClick}>Append</div>
+                <br/>
+                <br/>
+            </div>
+        </React.Fragment>
     );
 }
